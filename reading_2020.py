@@ -9,7 +9,8 @@ ratings = df.groupby(by='Type').agg({'Title':'count','Rating':'mean'})
 
 # Plot average ratings as bar with number of titles annotated
 spines_ = ['right', 'top', 'left', 'bottom']
-ax = ratings['Rating'].plot(kind='barh', color='#1837D2')
+colors=['#0B1441', '#10227C', '#1837D2']
+ax = ratings['Rating'].plot(kind='barh', color=colors, figsize=(12,10))
 for spine in spines_:
     ax.spines[spine].set_visible(False)
 ax.tick_params(axis='both', which='both', bottom=False, top=False, labelbottom=True, left=False, right=False, labelleft=True)
@@ -21,3 +22,4 @@ for i,v in enumerate(ratings['Rating']):
     ax.text(v+.1, i, str("{:.2f}".format(v)), weight='bold')
 plt.savefig('rating_format.png')
 plt.close()
+
