@@ -2,6 +2,8 @@ import pandas as pd
 import datetime as dt
 import matplotlib.pyplot as plt
 
+# set style 
+plt.style.use('bmh')
 # Load data
 df = pd.read_excel('book_list.xlsx')
 
@@ -18,11 +20,11 @@ books = books[['rolling_count']]
 dates = pd.DataFrame(index=pd.date_range(start_date, end_date))
 books = dates.join(books)
 books.fillna(0, inplace=True)
-ax = books.plot(kind='area')
+ax = books.plot(kind='area', figsize=(12,10))
 ax.set_yticks([0, 25, 50, 75, 100, 125, 150, 175, 200])
 ax.set_xlabel('Date', labelpad=10, weight='bold', size=12)
 ax.set_ylabel('Books Read', labelpad=10, weight='bold', size=12)
-ax.set_title('Books Read Towards My Yearly Goal of 200', pad=20, weight='bold', size=18)
+ax.set_title('Books Read Towards My Yearly Goal of 200 Books', pad=20, weight='bold', size=18)
 ax.legend(labels=['Books Read'])
 read = int(books['rolling_count'].max())
 ax.text(today_date, read, 'As of Today: %s' % (read), weight='bold')
@@ -30,6 +32,8 @@ q1 = books['rolling_count'].loc['20200331']
 ax.text(dt.datetime(2020,3,1), q1, 'Q1: %s' % (int(q1)))
 q2 = books['rolling_count'].loc['20200630']
 ax.text(dt.datetime(2020,6,1), q2-5, 'Q2: %s' % (int(q2)))
+plt.savefig('goal_progress.png')
+plt.close()
 
 
 # What is my average rating?
