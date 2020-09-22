@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import datetime as dt
 import matplotlib.pyplot as plt
 
@@ -21,6 +22,7 @@ dates = pd.DataFrame(index=pd.date_range(start_date, end_date))
 books = dates.join(books)
 books.fillna(0, inplace=True)
 ax = books.plot(kind='area', figsize=(12,10))
+ax.plot(dates, (200/365)*dates, 'g')
 ax.set_yticks([0, 25, 50, 75, 100, 125, 150, 175, 200])
 ax.set_xlabel('Date', labelpad=10, weight='bold', size=12)
 ax.set_ylabel('Books Read', labelpad=10, weight='bold', size=12)
